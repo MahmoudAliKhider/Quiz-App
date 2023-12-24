@@ -1,8 +1,11 @@
-import '../styles/App.css';
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Main from "../components/Main";
+import '../styles/App.css';
+
 import Quiz from "../components/Quiz";
-import Result from "../components/Result"
+import Result from "../components/Result";
+
 
 const router = createBrowserRouter([
   {
