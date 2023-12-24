@@ -1,10 +1,10 @@
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Main from "../components/Main";
-import '../styles/App.css';
 
 import Quiz from "../components/Quiz";
 import Result from "../components/Result";
+import '../styles/App.css';
 
 
 const router = createBrowserRouter([
