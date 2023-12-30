@@ -1,11 +1,15 @@
 import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Text, Stack, Input } from '@chakra-ui/react';
+import ColorModeSwitch from './ColorModeSwitch';
 const Main = () => {
   const userRef = useRef(null);
 
   return (
-    <Stack  width={"50%"} marginLeft="31%" marginTop="40px" >
+    <Stack  width={"60%"} marginLeft="30%" marginTop="60px" >
+
+      <ColorModeSwitch />
+
       <Text fontSize='5xl' border={"5px solid"} textAlign={"center"} padding={"10px"} borderColor={"#0DFF92"} borderRadius={"10px"} width={"80%"} marginBottom={"40px"}>Quiz Application</Text>
 
       <Text fontSize='2xl'>1- You will be asked 10 questions one after another.</Text>
