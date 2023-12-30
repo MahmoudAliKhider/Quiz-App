@@ -14,7 +14,7 @@ const Quiz = () => {
 
   return (
 
-    <Stack color="white" width="50%" marginLeft={"27%"} marginTop={"50px"}>
+    <Stack  width="50%" marginLeft={"27%"} marginTop={"50px"}>
       <Text fontSize='5xl' border={"5px solid"} textAlign={"center"} padding={"10px"} borderColor={"#0DFF92"} borderRadius={"10px"} marginBottom={"40px"}>Quiz Application</Text>
 
       <Question />

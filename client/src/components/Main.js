@@ -5,7 +5,7 @@ const Main = () => {
   const userRef = useRef(null);
 
   return (
-    <Stack color={"white"} width={"50%"} marginLeft="31%" marginTop="40px" >
+    <Stack  width={"50%"} marginLeft="31%" marginTop="40px" >
       <Text fontSize='5xl' border={"5px solid"} textAlign={"center"} padding={"10px"} borderColor={"#0DFF92"} borderRadius={"10px"} width={"80%"} marginBottom={"40px"}>Quiz Application</Text>
 
       <Text fontSize='2xl'>1- You will be asked 10 questions one after another.</Text>
