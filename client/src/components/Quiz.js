@@ -8,7 +8,7 @@ const Quiz = () => {
   const state = useSelector(state => state);
 
   useEffect(() => {
-    console.log(state);
+    // console.log(state);
   })
   const onNext = () => {
     console.log("next")
