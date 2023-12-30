@@ -9,13 +9,18 @@ import {
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import data from '../Database/data'
+import {useFetchQuestion} from '../hooks/FetchQuestions';
 
 const Question = () => {
     const { select, setSelect } = useState(undefined);
     const Question = data[0];
 
+    const [{isLoading, apiData, serverError}] = useFetchQuestion();
     useEffect(() => {
         // console.log(Question)
+        // console.log(isLoading)
+        // console.log(apiData)
+        // console.log(serverError)
     })
 
 
