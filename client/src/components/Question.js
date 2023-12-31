@@ -12,19 +12,21 @@ import { useFetchQuestion } from '../hooks/FetchQuestions';
 import { useSelector } from 'react-redux';
 
 const Question = () => {
-    const { select, setSelect } = useState(undefined);
+    const [select, setSelect] = useState(undefined);
 
     const [{ isLoading, apiData, serverError }] = useFetchQuestion();
     const questions = useSelector(state => state.questions.queue[state.questions.trace]);
 
     useEffect(() => {
-        console.log(questions);
+        // console.log(questions);
     })
 
 
-    const onSelect = () => {
-        console.log('onSelect');
-    }
+    const onSelect = (index) => {
+        setSelect(index);
+        console.log('Selected index:', index);
+    };
+
 
     if (isLoading) return <Text>Loadind...</Text>
     if (serverError) return <Text>{serverError || 'UnKnown Error'}...</Text>
@@ -38,13 +40,22 @@ const Question = () => {
                     questions?.options.map((option, index) => (
                         <ListItem padding={"10px"} key={index}>
 
-                            <Radio key={index} marginBottom={"20px"} colorScheme='whatsapp' value={option} onChange={onSelect}>
-                                <div> {option}</div>
+                            <Radio
+                                marginBottom={'20px'}
+                                colorScheme='whatsapp'
+                                value={index}
+                                isChecked={select === index}
+                                onChange={() => onSelect(index)}
+                            >
+                                {option}
                             </Radio>
+
 
                         </ListItem >
                     ))
                 }
+
+
 
             </OrderedList>
         </Stack>

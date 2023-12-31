@@ -1,21 +1,29 @@
 import React, { useEffect } from 'react'
 import { Text, Stack, Button } from '@chakra-ui/react';
 import Question from './Question';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { MoveNextAction, MovePrevAction } from '../hooks/FetchQuestions';
 
 const Quiz = () => {
 
-  const state = useSelector(state => state);
+  const trace = useSelector(state => state.questions.trace);
+  const queue = useSelector(state => state.questions.queue.length);
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    // console.log(state);
+    // console.log(trace);
+    // console.log(queue);
   })
   const onNext = () => {
-    console.log("next")
+    if(trace < queue){
+      dispatch(MoveNextAction());
+    }
   };
 
   const onPrev = () => {
-    console.log("prev")
+    if (trace > 0) {
+      dispatch(MovePrevAction());
+    }
   };
 
   return (
@@ -26,8 +34,8 @@ const Quiz = () => {
       <Question />
 
       <Stack pacing={4} direction='row' align='center' justifyContent="space-between">
-        <Button colorScheme='whatsapp' onClick={onNext}>Next</Button>
         <Button colorScheme='whatsapp' onClick={onPrev}>Prev</Button>
+        <Button colorScheme='whatsapp' onClick={onNext}>Next</Button>
       </Stack>
     </Stack>
   )
