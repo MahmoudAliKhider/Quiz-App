@@ -4,23 +4,30 @@ import Question from './Question';
 import { useDispatch, useSelector } from 'react-redux';
 import { MoveNextAction, MovePrevAction } from '../hooks/FetchQuestions';
 import { PushAnswer } from '../hooks/SetResult';
-import {Navigate} from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 const Quiz = () => {
-  const [select, setSelect] = useState(undefined)
-  const trace = useSelector(state => state.questions.trace);
-  const queue = useSelector(state => state.questions.queue.length);
+
+  const [check, setChecked] = useState(undefined);
+
   const result = useSelector(state => state.result.result);
+  const { queue, trace } = useSelector(state => state.questions);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
-    // console.log(trace);
-    // console.log(queue);
+    // console.log(check);
+    // console.log(result);
   })
+
   const onNext = () => {
-    if (trace < queue) {
+    if (trace < queue.length) {
       dispatch(MoveNextAction());
-      dispatch(PushAnswer(select))
+
+      if (result.length <= trace) {
+        dispatch(PushAnswer(check));
+      }
     }
+
   };
 
   const onPrev = () => {
@@ -30,13 +37,13 @@ const Quiz = () => {
   };
 
   const onChecked = (check) => {
-    // console.log(check);
-    setSelect(check);
+    setChecked(check);
   }
 
-  if(result.length && result.length>= queue ) {
-    return <Navigate to='/result' replace='tr'></Navigate>
+  if (result.length && result.length >= queue.length) {
+    return <Navigate to='/result' replace={true}></Navigate>
   }
+
   return (
 
     <Stack width="50%" marginLeft={"27%"} marginTop={"50px"}>
@@ -44,8 +51,8 @@ const Quiz = () => {
 
       <Question onChecked={onChecked} />
 
-      <Stack pacing={4} direction='row' align='center' justifyContent="space-between">
-        <Button colorScheme='whatsapp' onClick={onPrev}>Prev</Button>
+      <Stack marginTop={"20px"} direction='row' align='center' justifyContent="space-between">
+        {trace > 0 ? <Button colorScheme='whatsapp' onClick={onPrev}>Prev</Button> : <div></div>}
         <Button colorScheme='whatsapp' onClick={onNext}>Next</Button>
       </Stack>
     </Stack>

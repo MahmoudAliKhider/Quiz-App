@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 export const resulteReducer = createSlice(
     {
-        name: "resulte",
+        name: "result",
         initialState: {
             userId: null,
             result: [],
@@ -11,8 +11,12 @@ export const resulteReducer = createSlice(
             setUserId: (state, action) => {
                 state.userId = action.payload;
             },
-            pushResaultAction: (state, action) => {
-                state.result.push(action.payload);
+            pushResultAction : (state, action) => {
+                state.result.push(action.payload)
+            },
+            updateResultAction : (state, action) => {
+                const { trace, checked } = action.payload;
+                state.result.fill(checked, trace, trace + 1)
             },
             resetResultAction: () => {
                 return {
@@ -22,5 +26,5 @@ export const resulteReducer = createSlice(
             }
         },
     });
-export const { setUserId, pushResaultAction, resetResultAction } = resulteReducer.actions;
+export const { setUserId, pushResultAction, resetResultAction, updateResultAction } = resulteReducer.actions;
 export default resulteReducer.reducer;

@@ -10,8 +10,8 @@ const Result = () => {
   const dispatch = useDispatch();
 
   const onRestart = () => {
-    dispatch(resetAllAction);
-    dispatch(resetResultAction);
+    dispatch(resetAllAction());
+    dispatch(resetResultAction());
   }
   return (
 

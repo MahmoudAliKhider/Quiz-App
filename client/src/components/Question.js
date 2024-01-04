@@ -9,22 +9,30 @@ import {
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useFetchQuestion } from '../hooks/FetchQuestions';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateResultAction } from '../redux/resulteReducer';
+import { updateResult } from '../hooks/SetResult';
 
-const Question = ({onChecked}) => {
-    const [select, setSelect] = useState(undefined);
+const Question = ({ onChecked }) => {
+    const [checked, setChecked] = useState(undefined);
+    const { trace } = useSelector(state => state.questions);
 
     const [{ isLoading, apiData, serverError }] = useFetchQuestion();
     const questions = useSelector(state => state.questions.queue[state.questions.trace]);
     const result = useSelector(state => state.result.result);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        console.log(result);
-    })
+        console.log({ trace, checked })
+        dispatch(updateResult({ trace, checked }))
+    }, [checked])
 
 
-    const onSelect = (i) => {
-      onChecked(i)
+    function onSelect(i) {
+        onChecked(i)
+        setChecked(i)
+        dispatch(updateResult({ trace, checked }))
     };
 
 
@@ -35,23 +43,23 @@ const Question = ({onChecked}) => {
             <Text fontSize={"3xl"} marginBottom={"30px"}>{questions?.question} </Text>
 
             <ul key={questions?.id}>
-            {
-                questions?.options.map((q, i) => (
-                    <li key={i}>
-                        <input 
-                            type="radio"
-                            value={false}
-                            name="options"
-                            id={`q${i}-option`}
-                            onChange={() => onSelect(i)}
-                        />
+                {
+                    questions?.options.map((q, i) => (
+                        <li key={i}>
+                            <input
+                                type="radio"
+                                value={false}
+                                name="options"
+                                id={`q${i}-option`}
+                                onChange={() => onSelect(i)}
+                            />
 
-                        <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label>
-                        {/* <div className={`check ${result[trace] == i ? 'checked' : ''}`}></div> */}
-                    </li>
-                ))
-            }
-        </ul>
+                            <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label>
+                            <div className={`check ${result[trace] === i ? 'checked' : ''}`}></div>
+                        </li>
+                    ))
+                }
+            </ul>
 
         </Stack>
     )
