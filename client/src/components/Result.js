@@ -10,13 +10,13 @@ import { attempts_Number, earnPoints_Number, flagResult } from '../helper/helper
 const Result = () => {
   const dispatch = useDispatch();
 
-  const { questions : { queue ,answers}, result : { result, userId}}  = useSelector(state => state)
- 
+  const { questions: { queue, answers }, result: { result, userId } } = useSelector(state => state)
+
   useEffect(() => {
     console.log(flag);
   })
 
-  const totalPoints = queue.length * 10; 
+  const totalPoints = queue.length * 10;
   const attempts = attempts_Number(result);
   const earnPoints = earnPoints_Number(result, answers, 10)
   const flag = flagResult(totalPoints, earnPoints)
@@ -44,7 +44,7 @@ const Result = () => {
 
         <Stack direction={"row"} marginBottom={"5px"} justifyContent={"space-between"}>
           <Text >Total Question :</Text>
-          <Text>0{ queue.length || 0}</Text>
+          <Text>0{queue.length || 0}</Text>
         </Stack>
 
         <Stack direction={"row"} marginBottom={"5px"} justifyContent={"space-between"}>
@@ -59,7 +59,7 @@ const Result = () => {
 
         <Stack direction={"row"} marginBottom={"5px"} justifyContent={"space-between"}>
           <Text > Quiz Result </Text>
-          <Text style={{ color : `${flag ? "#2aff95" : "#ff2a66" }` }}>{flag ? "Passed" : "Failed"}</Text>
+          <Text style={{ color: `${flag ? "#2aff95" : "#ff2a66"}` }}>{flag ? "Passed" : "Failed"}</Text>
         </Stack>
 
       </Stack>
