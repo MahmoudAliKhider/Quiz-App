@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { useFetchQuestion } from '../hooks/FetchQuestions';
 import { useSelector } from 'react-redux';
 
-const Question = () => {
+const Question = ({onChecked}) => {
     const [select, setSelect] = useState(undefined);
 
     const [{ isLoading, apiData, serverError }] = useFetchQuestion();
@@ -23,8 +23,8 @@ const Question = () => {
     })
 
 
-    const onSelect = () => {
-      
+    const onSelect = (i) => {
+      onChecked(i)
     };
 
 
