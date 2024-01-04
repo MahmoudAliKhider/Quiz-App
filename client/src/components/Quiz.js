@@ -4,11 +4,12 @@ import Question from './Question';
 import { useDispatch, useSelector } from 'react-redux';
 import { MoveNextAction, MovePrevAction } from '../hooks/FetchQuestions';
 import { PushAnswer } from '../hooks/SetResult';
-
+import {Navigate} from 'react-router-dom'
 const Quiz = () => {
   const [select, setSelect] = useState(undefined)
   const trace = useSelector(state => state.questions.trace);
   const queue = useSelector(state => state.questions.queue.length);
+  const result = useSelector(state => state.result.result);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -33,6 +34,9 @@ const Quiz = () => {
     setSelect(check);
   }
 
+  if(result.length && result.length>= queue ) {
+    return <Navigate to='/result' replace='tr'></Navigate>
+  }
   return (
 
     <Stack width="50%" marginLeft={"27%"} marginTop={"50px"}>
