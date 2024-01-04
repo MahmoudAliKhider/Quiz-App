@@ -1,16 +1,7 @@
-import {
-    Stack,
-    Text,
-    OrderedList,
-    Radio,
-    ListItem,
-
-
-} from '@chakra-ui/react'
+import { Stack, Text, } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useFetchQuestion } from '../hooks/FetchQuestions';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateResultAction } from '../redux/resulteReducer';
 import { updateResult } from '../hooks/SetResult';
 
 const Question = ({ onChecked }) => {
@@ -22,9 +13,8 @@ const Question = ({ onChecked }) => {
     const result = useSelector(state => state.result.result);
 
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
-        console.log({ trace, checked })
         dispatch(updateResult({ trace, checked }))
     }, [checked])
 

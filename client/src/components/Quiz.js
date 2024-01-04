@@ -4,7 +4,8 @@ import Question from './Question';
 import { useDispatch, useSelector } from 'react-redux';
 import { MoveNextAction, MovePrevAction } from '../hooks/FetchQuestions';
 import { PushAnswer } from '../hooks/SetResult';
-import { Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
+
 const Quiz = () => {
 
   const [check, setChecked] = useState(undefined);
@@ -14,11 +15,6 @@ const Quiz = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // console.log(check);
-    // console.log(result);
-  })
-
   const onNext = () => {
     if (trace < queue.length) {
       dispatch(MoveNextAction());
@@ -27,6 +23,7 @@ const Quiz = () => {
         dispatch(PushAnswer(check));
       }
     }
+    setChecked(undefined);
 
   };
 

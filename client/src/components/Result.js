@@ -1,18 +1,31 @@
 import { Stack, VStack, Text, WrapItem, Button } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { Link } from 'react-router-dom'
 import ResultTable from './ResultTable'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { resetAllAction } from '../redux/questionReducer'
 import { resetResultAction } from '../redux/resulteReducer'
+import { attempts_Number, earnPoints_Number, flagResult } from '../helper/helper'
 
 const Result = () => {
   const dispatch = useDispatch();
+
+  const { questions : { queue ,answers}, result : { result, userId}}  = useSelector(state => state)
+ 
+  useEffect(() => {
+    console.log(flag);
+  })
+
+  const totalPoints = queue.length * 10; 
+  const attempts = attempts_Number(result);
+  const earnPoints = earnPoints_Number(result, answers, 10)
+  const flag = flagResult(totalPoints, earnPoints)
 
   const onRestart = () => {
     dispatch(resetAllAction());
     dispatch(resetResultAction());
   }
+
   return (
 
     <VStack fontFamily={"sans-serif"} width={"50%"} marginLeft="26%" marginTop="40px">
@@ -26,27 +39,27 @@ const Result = () => {
 
         <Stack direction={"row"} marginBottom={"5px"} justifyContent={"space-between"}>
           <Text >Total Quiz Points :</Text>
-          <Text>50</Text>
+          <Text>{totalPoints || 0}</Text>
         </Stack>
 
         <Stack direction={"row"} marginBottom={"5px"} justifyContent={"space-between"}>
           <Text >Total Question :</Text>
-          <Text>05</Text>
+          <Text>0{ queue.length || 0}</Text>
         </Stack>
 
         <Stack direction={"row"} marginBottom={"5px"} justifyContent={"space-between"}>
           <Text >Total Attempts :</Text>
-          <Text>03</Text>
+          <Text>0{attempts || 0}</Text>
         </Stack>
 
         <Stack direction={"row"} marginBottom={"5px"} justifyContent={"space-between"}>
           <Text >Total Earn Points :</Text>
-          <Text>30</Text>
+          <Text>{earnPoints || 0}</Text>
         </Stack>
 
         <Stack direction={"row"} marginBottom={"5px"} justifyContent={"space-between"}>
           <Text > Quiz Result </Text>
-          <Text>Passed</Text>
+          <Text style={{ color : `${flag ? "#2aff95" : "#ff2a66" }` }}>{flag ? "Passed" : "Failed"}</Text>
         </Stack>
 
       </Stack>

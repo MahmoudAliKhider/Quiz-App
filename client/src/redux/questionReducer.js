@@ -5,14 +5,17 @@ export const questionsReducer = createSlice({
     name: "questions",
     initialState: {
         queue: [],
-        answer: [],
+        answers: [],
         trace: 0
     },
     reducers: {
         startExameAction: (state, action) => {
+            let { questions, answers } = action.payload;
+
             return {
                 ...state,
-                queue: action.payload,
+                queue: questions,
+                answers,
             }
         },
         moveNextAction: (state, action) => {
@@ -30,7 +33,7 @@ export const questionsReducer = createSlice({
         resetAllAction: () => {
             return {
                 queue: [],
-                answer: [],
+                answers: [],
                 trace: 0
             }
         }
