@@ -16,15 +16,15 @@ const Question = () => {
 
     const [{ isLoading, apiData, serverError }] = useFetchQuestion();
     const questions = useSelector(state => state.questions.queue[state.questions.trace]);
+    const result = useSelector(state => state.result);
 
     useEffect(() => {
-        // console.log(questions);
+        console.log(result);
     })
 
 
-    const onSelect = (index) => {
-        setSelect(index);
-        console.log('Selected index:', index);
+    const onSelect = () => {
+      
     };
 
 
@@ -34,30 +34,25 @@ const Question = () => {
         <Stack >
             <Text fontSize={"3xl"} marginBottom={"30px"}>{questions?.question} </Text>
 
-            <OrderedList padding={"20px"} key={questions?.id} marginBottom={"20px"} >
+            <ul key={questions?.id}>
+            {
+                questions?.options.map((q, i) => (
+                    <li key={i}>
+                        <input 
+                            type="radio"
+                            value={false}
+                            name="options"
+                            id={`q${i}-option`}
+                            onChange={() => onSelect(i)}
+                        />
 
-                {
-                    questions?.options.map((option, index) => (
-                        <ListItem padding={"10px"} key={index}>
+                        <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label>
+                        {/* <div className={`check ${result[trace] == i ? 'checked' : ''}`}></div> */}
+                    </li>
+                ))
+            }
+        </ul>
 
-                            <Radio
-                                marginBottom={'20px'}
-                                colorScheme='whatsapp'
-                                value={index}
-                                isChecked={select === index}
-                                onChange={() => onSelect(index)}
-                            >
-                                {option}
-                            </Radio>
-
-
-                        </ListItem >
-                    ))
-                }
-
-
-
-            </OrderedList>
         </Stack>
     )
 }

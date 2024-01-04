@@ -3,6 +3,7 @@ import { Text, Stack, Button } from '@chakra-ui/react';
 import Question from './Question';
 import { useDispatch, useSelector } from 'react-redux';
 import { MoveNextAction, MovePrevAction } from '../hooks/FetchQuestions';
+import { PushAnswer } from '../hooks/SetResult';
 
 const Quiz = () => {
 
@@ -17,6 +18,7 @@ const Quiz = () => {
   const onNext = () => {
     if(trace < queue){
       dispatch(MoveNextAction());
+      dispatch(PushAnswer(2))
     }
   };
 
