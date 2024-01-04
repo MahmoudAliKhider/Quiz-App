@@ -2,11 +2,20 @@ import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Text, Stack, Input } from '@chakra-ui/react';
 import ColorModeSwitch from './ColorModeSwitch';
+import { useDispatch } from 'react-redux';
+import { setUserId } from '../redux/resulteReducer';
 const Main = () => {
-  const userRef = useRef(null);
+  const inputRef = useRef(null);
 
+  const dispatch = useDispatch()
+
+  const startQuiz = () => {
+    if (inputRef.current?.value) {
+       dispatch(setUserId(inputRef.current?.value))
+    }
+  }
   return (
-    <Stack  width={"60%"} marginLeft="30%" marginTop="60px" >
+    <Stack width={"60%"} marginLeft="30%" marginTop="60px" >
 
       <ColorModeSwitch />
 
@@ -19,11 +28,11 @@ const Main = () => {
       <Text fontSize='2xl'>5- The result will be declared at the end of the quiz.</Text>
 
       <form id='form' >
-        <Input marginLeft={"20%"} textAlign={"center"} alignItems="center" width={"40%"} marginTop="40px" size="lg" ref={userRef} type='text' placeholder='userName*' />
+        <Input ref={inputRef} marginLeft={"20%"} textAlign={"center"} alignItems="center" width={"40%"} marginTop="40px" size="lg" type='text' placeholder='userName*' />
       </form>
 
       <Stack marginRight={"20%"} marginTop={"20px"} color="red" alignItems="center">
-        <Link to={'Quiz'}> Start Quiz </Link>
+        <Link to={'Quiz'} onClick={startQuiz}> Start Quiz </Link>
       </Stack>
     </Stack>
   )
