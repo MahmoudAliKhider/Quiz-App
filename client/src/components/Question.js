@@ -14,7 +14,7 @@ const Question = ({ onChecked }) => {
 
     const dispatch = useDispatch();
     
-    useSelector(state => console.log(state))
+    // useSelector(state => console.log(state))
     
     useEffect(() => {
         dispatch(updateResult({ trace, checked }))
