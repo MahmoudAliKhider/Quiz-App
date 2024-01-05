@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getServerData } from '../helper/helper';
+
 import {
     Table,
     Thead,
@@ -12,6 +14,15 @@ import {
 } from '@chakra-ui/react'
 
 const ResultTable = () => {
+
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        getServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/result`, (res) => {
+            setData(res)
+        })
+    })
+
     return (
         <TableContainer>
             <Table variant='simple'>
@@ -25,18 +36,18 @@ const ResultTable = () => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <Tr>
-                        <Td>Mahmoud Khider</Td>
-                        <Td>04</Td>
-                        <Td>20</Td>
-                        <Td>Passed</Td>
-                    </Tr>
-                    <Tr>
-                        <Td>Ali Mahmoud</Td>
-                        <Td>03</Td>
-                        <Td>30</Td>
-                        <Td>Passed</Td>
-                    </Tr>
+                    {!data ?? <div>No Data Found </div>}
+                    {
+                        data.map((d, i) => (
+                            <Tr key={i}>
+                                <Td>{d?.username || ''}</Td>
+                                <Td>{d?.attempts || 0}</Td>
+                                <Td>{d?.points || 0}</Td>
+                                <Td>{d?.achived || ""}</Td>
+                            </Tr>
+                        ))
+                    }
+
                 </Tbody>
                 <Tfoot>
                     <Tr>
